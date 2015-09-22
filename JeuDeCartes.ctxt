@@ -1,0 +1,8 @@
+#BlueJ class context
+comment0.params=germe
+comment0.target=void\ initialiserJeuDeCarte(int)
+comment1.params=a\ b
+comment1.target=int\ alea(int,\ int)
+comment2.params=
+comment2.target=int\ pigerDeuxCartes()
+numComments=3
