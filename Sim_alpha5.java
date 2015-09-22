@@ -5,7 +5,7 @@
  * @author
  * @version 
  */
-public class Tp2 {
+public class Sim_alpha5 {
 
     public static char lireOuiNon () {
         
@@ -29,11 +29,11 @@ public class Tp2 {
         int reponse;
         
         System.out.println ( "Quel pari voulez-vous faire ?" );
-        System.out.print ( " 1 : paire, 2 : sequence, 3 : meme couleur => " );
+        System.out.print ( " 1 : paire, 2 : séquence, 3 : même couleur, 4 : somme <= 7 => " );
         reponse = Clavier.lireInt (); 
         
-        while ( reponse != 1 && reponse != 2 && reponse != 3 ) {
-            System.out.print ( "*** vous devez repondre par 1, 2 ou 3 : " );
+        while ( reponse < 1 || reponse > 4 ) {
+            System.out.print ( "*** vous devez répondre par 1, 2, 3 ou 4 : " );
             reponse = Clavier.lireInt ();
         }
         
@@ -48,7 +48,7 @@ public class Tp2 {
         reponse = Clavier.lireInt();
         
         while ( reponse <= 0 ) {
-            System.out.print ( "*** Le montant doit etre superieur a 0 : " );
+            System.out.print ( "*** Le montant doit être supérieur à 0 : " );
             reponse = Clavier.lireInt();
         }
         
@@ -63,7 +63,7 @@ public class Tp2 {
         reponse = Clavier.lireInt();
         
         while ( reponse < 0 || reponse > max ) {
-            System.out.print ( "*** Le montant doit etre entre 0 et " + max + " : " );
+            System.out.print ( "*** Le montant doit être entre 0 et " + max + " : " );
             reponse = Clavier.lireInt();
         }
         
@@ -72,8 +72,8 @@ public class Tp2 {
     
     public static int laSorte ( int carte ) {
         
-    /* antecedent : 0 <= carte <= 51
-     * consequent : retourne la valeur de la carte (0, 1, ... 12)
+    /* antécédent : 0 <= carte <= 51
+     * conséquent : retourne la valeur de la carte (0, 1, ... 12)
      *              0 : as, 1 : 2, 2 : 3, ..., 9 : 10, 10 : valet, 11 : dame, 12 : roi
      */
     
@@ -83,8 +83,8 @@ public class Tp2 {
     
     public static int laCouleur ( int carte ) {
         
-    /* ant�c�dent : 0 <= carte <= 51
-     * cons�quent : retourne la couleur de la carte (0, 1, 2, 3)
+    /* antécédent : 0 <= carte <= 51
+     * conséquent : retourne la couleur de la carte (0, 1, 2, 3)
      *              0 : coeur, 1 : carreau, 2 : trefle, 3 : pique
      */
     
@@ -94,8 +94,8 @@ public class Tp2 {
     
     public static boolean estUnePaire ( int carte1, int carte2 ) { 
 
-    /* ant�c�dent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-     * cons�quent : retourne vrai si carte1 et carte 2 constituent une paire,
+    /* antécédent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+     * conséquent : retourne vrai si carte1 et carte 2 constituent une paire,
      *              faux sinon
      */
     
@@ -105,11 +105,11 @@ public class Tp2 {
 
     public static boolean sontMemeCouleur ( int carte1, int carte2 ) { 
 
-    /* ant�c�dent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-     * cons�quent : retourne vrai si carte1 et carte 2 sont de la m�me
-     *              couleur.  Les 4 couleurs possibles sont : coeur, carreau,
-     *              tr�fle et pique.
-     */
+        /* antécédent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+         * conséquent : retourne vrai si carte1 et carte 2 sont de la même
+         *              couleur.  Les 4 couleurs possibles sont : coeur, carreau,
+         *              trèfle et pique.
+         */
         
         return laCouleur ( carte1 ) == laCouleur ( carte2 );
         
@@ -117,13 +117,13 @@ public class Tp2 {
 
     public static boolean estUneSequence ( int carte1, int carte2 ) { 
 
-    /* ant�c�dent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-     * cons�quent : retourne vrai si carte1 et carte 2 forment une s�quence,
-     *              peu importe leur couleur, faux sinon.  Une s�quence de
-     *              deux cartes sont deux cartes de valeur cons�cutive.  L'as
-     *              et le 2 sont consid�r�es comme cons�cutives ainsi que l'as
-     *              et le roi.
-     */
+        /* antécédent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+         * conséquent : retourne vrai si carte1 et carte 2 forment une s�quence,
+         *              peu importe leur couleur, faux sinon.  Une s�quence de
+         *              deux cartes sont deux cartes de valeur cons�cutive.  L'as
+         *              et le 2 sont consid�r�es comme cons�cutives ainsi que l'as
+         *              et le roi.
+         */
     
         int sorte1 = laSorte ( carte1 );
         int sorte2 = laSorte ( carte2 );
@@ -134,6 +134,35 @@ public class Tp2 {
                sorte2 == 12 && sorte1 == 0;
                
     } // estUneSequence
+    
+    public static boolean estInferieurOuEgalA7( int carte1, int carte2){
+        /* antécédent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+         * conséquent : retourne vrai si la somme de carte1 + carte 2 est égale ou 
+         *              inférieur à 7. Les as valent 1, les figures valent 10 et les autres 
+         *              valent leur chiffre en valeur.
+         */
+        
+        int sorte1 = laSorte(carte1);
+        int sorte2 = laSorte(carte2);
+        
+        if (sorte1 == 0){
+            sorte1 = 1;
+        }
+        
+        if (sorte2 == 0){
+            sorte2 = 1;
+        }
+        
+        if (sorte1 > 9) {
+            sorte1 = 10;
+        }
+        
+        if (sorte2 > 9) {
+            sorte2 = 10;
+        }
+        
+        return (sorte1 + sorte2) <= 7;
+    }
 
     public static String chaineCouleur ( int carte ) {
         
@@ -175,8 +204,8 @@ public class Tp2 {
     
     public static void afficherCarte ( int carte ) { 
 
-    /* ant�c�dent : 0 <= carte <= 51
-     * cons�quent : Affiche la carte selon sa couleur et sa valeur
+    /* antécédent : 0 <= carte <= 51
+     * conséquent : Affiche la carte selon sa couleur et sa valeur
      */
     
         System.out.print ( chaineSorte ( carte ) + " " + chaineCouleur ( carte ) );
@@ -185,11 +214,11 @@ public class Tp2 {
     
     public static void afficherLesDeuxCartes ( int carte1, int carte2 ) {
                           
-        System.out.print ( "Voici la premiere carte : " );
+        System.out.print ( "Voiçi la premiere carte : " );
         afficherCarte ( carte1 );
         System.out.println ();
             
-        System.out.print ( "Voici la deuxieme carte : " );
+        System.out.print ( "Voiçi la deuxieme carte : " );
         afficherCarte ( carte2 );
         System.out.println ( '\n' );
             
@@ -197,7 +226,7 @@ public class Tp2 {
 
     public static void afficherFin ( int montant ) {
         
-        System.out.println ( "Merci d'avoir joue avec moi !" );
+        System.out.println ( "Merci d'avoir joué avec moi !" );
         System.out.println ( "Vous quittez avec " + montant + " $ en poche." );
         
     } // afficherFin
@@ -221,6 +250,7 @@ public class Tp2 {
         int     deuxCartes;     // les deux cartes pigees par l'ordinateur
         int     carte1;         // la premiere carte pigee
         int     carte2;         // la deuxieme carte pigee
+        int     coutPari = 3;   // un pari coûte 3 $
         
         boolean joueurGagne;    // si le joueur a gagne ou non la partie 
         
@@ -239,7 +269,6 @@ public class Tp2 {
         System.out.println ();
         
         while ( reponse == 'o' ) { 
-            
             // saisie et validation du type de pari
             
             pari = lireSortePari ();
@@ -271,19 +300,27 @@ public class Tp2 {
             } else if ( pari == 2 ) { // est-ce une sequence ?
                 joueurGagne = estUneSequence ( carte1, carte2 );
                 montantGagne = 2 * mise;
-            } else { // deux de la meme couleur ?
+            } else if ( pari == 3 ) { // deux de la meme couleur ?
                 joueurGagne = sontMemeCouleur ( carte1, carte2 );
                 montantGagne = mise;
+            } else { // somme des deux inférieur ou égale à 7 ?
+                joueurGagne = estInferieurOuEgalA7 ( carte1, carte2 );
+                montantGagne = 5 * mise;
             }
             
             // afficher si le joueur a gagne ou perdu ainsi que son gain s'il y a lieu
             
             if ( joueurGagne ) {
-                System.out.println ( "Bravo ! Vous avez gagne " + montantGagne + " $" );
+                System.out.println ( "Bravo ! Vous avez gagné " + montantGagne + " $" );
                 montantJoueur = montantJoueur + montantGagne;
             } else {
-                System.out.println ( "Desole ! Vous avez perdu votre mise !" );
+                System.out.println ( "Désolé ! Vous avez perdu votre mise !" );
             }
+            
+            // retrait du coût d'un pari
+            
+            montantJoueur = montantJoueur - coutPari;
+            System.out.println("Un coût de " + coutPari + " $ a été retiré de votre montant d'argent.");
             
             System.out.println ();
             System.out.println ( "Vous disposez maintenant de " + montantJoueur + " $" );
