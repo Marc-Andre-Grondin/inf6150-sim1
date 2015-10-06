@@ -29,11 +29,11 @@ public class Sim_alpha5 {
         int reponse;
         
         System.out.println ( "Quel pari voulez-vous faire ?" );
-        System.out.print ( " 1 : paire, 2 : séquence, 3 : même couleur, 4 : somme <= 7 => " );
+        System.out.print ( " 1 : paire, 2 : sequence, 3 : meme couleur, 4 : somme <= 7 => " );
         reponse = Clavier.lireInt (); 
         
         while ( reponse < 1 || reponse > 4 ) {
-            System.out.print ( "*** vous devez répondre par 1, 2, 3 ou 4 : " );
+            System.out.print ( "*** vous devez repondre par 1, 2, 3 ou 4 : " );
             reponse = Clavier.lireInt ();
         }
         
@@ -48,7 +48,7 @@ public class Sim_alpha5 {
         reponse = Clavier.lireInt();
         
         while ( reponse <= 0 ) {
-            System.out.print ( "*** Le montant doit être supérieur à 0 : " );
+            System.out.print ( "*** Le montant doit être superieur à 0 : " );
             reponse = Clavier.lireInt();
         }
         
@@ -72,8 +72,8 @@ public class Sim_alpha5 {
     
     public static int laSorte ( int carte ) {
         
-    /* antécédent : 0 <= carte <= 51
-     * conséquent : retourne la valeur de la carte (0, 1, ... 12)
+    /* antecedent : 0 <= carte <= 51
+     * consequent : retourne la valeur de la carte (0, 1, ... 12)
      *              0 : as, 1 : 2, 2 : 3, ..., 9 : 10, 10 : valet, 11 : dame, 12 : roi
      */
     
@@ -83,8 +83,8 @@ public class Sim_alpha5 {
     
     public static int laCouleur ( int carte ) {
         
-    /* antécédent : 0 <= carte <= 51
-     * conséquent : retourne la couleur de la carte (0, 1, 2, 3)
+    /* antecedent : 0 <= carte <= 51
+     * consequent : retourne la couleur de la carte (0, 1, 2, 3)
      *              0 : coeur, 1 : carreau, 2 : trefle, 3 : pique
      */
     
@@ -94,8 +94,8 @@ public class Sim_alpha5 {
     
     public static boolean estUnePaire ( int carte1, int carte2 ) { 
 
-    /* antécédent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-     * conséquent : retourne vrai si carte1 et carte 2 constituent une paire,
+    /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+     * consequent : retourne vrai si carte1 et carte 2 constituent une paire,
      *              faux sinon
      */
     
@@ -105,8 +105,8 @@ public class Sim_alpha5 {
 
     public static boolean sontMemeCouleur ( int carte1, int carte2 ) { 
 
-        /* antécédent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-         * conséquent : retourne vrai si carte1 et carte 2 sont de la même
+        /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+         * consequent : retourne vrai si carte1 et carte 2 sont de la même
          *              couleur.  Les 4 couleurs possibles sont : coeur, carreau,
          *              trèfle et pique.
          */
@@ -117,11 +117,11 @@ public class Sim_alpha5 {
 
     public static boolean estUneSequence ( int carte1, int carte2 ) { 
 
-        /* antécédent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-         * conséquent : retourne vrai si carte1 et carte 2 forment une s�quence,
-         *              peu importe leur couleur, faux sinon.  Une s�quence de
-         *              deux cartes sont deux cartes de valeur cons�cutive.  L'as
-         *              et le 2 sont consid�r�es comme cons�cutives ainsi que l'as
+        /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+         * consequent : retourne vrai si carte1 et carte 2 forment une sequence,
+         *              peu importe leur couleur, faux sinon.  Une sequence de
+         *              deux cartes sont deux cartes de valeur consecutive.  L'as
+         *              et le 2 sont considerees comme consecutives ainsi que l'as
          *              et le roi.
          */
     
@@ -136,28 +136,20 @@ public class Sim_alpha5 {
     } // estUneSequence
     
     public static boolean estInferieurOuEgalA7( int carte1, int carte2){
-        /* antécédent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
-         * conséquent : retourne vrai si la somme de carte1 + carte 2 est égale ou 
-         *              inférieur à 7. Les as valent 1, les figures valent 10 et les autres 
+        /* antecedent : 0 <= carte1 <= 51 et 0 <= carte2 <= 51
+         * consequent : retourne vrai si la somme de carte1 + carte 2 est égale ou 
+         *              inférieur a 7. Les as valent 1, les figures valent 10 et les autres 
          *              valent leur chiffre en valeur.
          */
         
-        int sorte1 = laSorte(carte1);
-        int sorte2 = laSorte(carte2);
+        int sorte1 = laSorte(carte1) + 1; // pour avoir la bonne valeur
+        int sorte2 = laSorte(carte2) + 1;
         
-        if (sorte1 == 0){
-            sorte1 = 1;
-        }
-        
-        if (sorte2 == 0){
-            sorte2 = 1;
-        }
-        
-        if (sorte1 > 9) {
+        if (sorte1 > 10) {
             sorte1 = 10;
         }
         
-        if (sorte2 > 9) {
+        if (sorte2 > 10) {
             sorte2 = 10;
         }
         
@@ -204,29 +196,46 @@ public class Sim_alpha5 {
     
     public static void afficherCarte ( int carte ) { 
 
-    /* antécédent : 0 <= carte <= 51
-     * conséquent : Affiche la carte selon sa couleur et sa valeur
+    /* antecedent : 0 <= carte <= 51
+     * consequent : Affiche la carte selon sa couleur et sa valeur
      */
     
-        System.out.print ( chaineSorte ( carte ) + " " + chaineCouleur ( carte ) );
+        // amelioration apportee : ajo
+        System.out.println ( chaineSorte ( carte ) + " " + chaineCouleur ( carte ) );
         
     } // afficherCarte
     
     public static void afficherLesDeuxCartes ( int carte1, int carte2 ) {
-                          
-        System.out.print ( "Voiçi la premiere carte : " );
+        //amelioration apportee : affichage simple des cartes
+        System.out.print ( "Voici la premiere carte : " );
+
         afficherCarte ( carte1 );
         System.out.println ();
             
-        System.out.print ( "Voiçi la deuxieme carte : " );
+        System.out.print ( "Voici la deuxieme carte : " );
         afficherCarte ( carte2 );
         System.out.println ( '\n' );
             
     } // afficherLesDeuxCartes
+    
+    public static void afficherSommeDesCartes ( int carte1, int carte2) {
+        ++carte1; // les cartes vont de 0 à 12. Ceci est pour avoir la bonne valeur
+        ++carte2;
+        
+        if(carte1 > 10){
+            carte1 = 10;
+        }
+        
+        if(carte2 > 10){
+            carte2 = 10;
+        }
+        
+        System.out.println( "La somme des cartes est : " + carte1 + " + " + carte2 + " = " + (carte1 + carte2) );
+    }
 
     public static void afficherFin ( int montant ) {
         
-        System.out.println ( "Merci d'avoir joué avec moi !" );
+        System.out.println ( "Merci d'avoir joue avec moi !" );
         System.out.println ( "Vous quittez avec " + montant + " $ en poche." );
         
     } // afficherFin
@@ -244,7 +253,7 @@ public class Sim_alpha5 {
         char    reponse;        // saisi : pour la reponse o ou n
         int     pari;           // saisi : pour la sorte de pari 1, 2 ou 3
         int     montantJoueur;  // saisi puis ajuste : montant dont dispose le joueur
-        int     montantGagne;   // calcule : montant gagne selon le pari effectue
+        int     montantGagne = 0;   // calcule : montant gagne selon le pari effectue
         
         int     mise;           // saisi : montant mise par le joueur
         int     deuxCartes;     // les deux cartes pigees par l'ordinateur
@@ -289,38 +298,42 @@ public class Sim_alpha5 {
             carte2 = deuxCartes % 100;
             
             afficherLesDeuxCartes ( carte1, carte2 );
+            afficherSommeDesCartes ( laSorte(carte1), laSorte(carte2) );
             
             // determiner si le joueur a gagne ou perdu
             
             joueurGagne = false;
             
-            if ( pari == 1 ) { // est-ce une paire ?
-                joueurGagne = estUnePaire ( carte1, carte2 );
-                montantGagne = 4 * mise;
-            } else if ( pari == 2 ) { // est-ce une sequence ?
-                joueurGagne = estUneSequence ( carte1, carte2 );
-                montantGagne = 2 * mise;
-            } else if ( pari == 3 ) { // deux de la meme couleur ?
-                joueurGagne = sontMemeCouleur ( carte1, carte2 );
-                montantGagne = mise;
-            } else { // somme des deux inférieur ou égale à 7 ?
-                joueurGagne = estInferieurOuEgalA7 ( carte1, carte2 );
-                montantGagne = 5 * mise;
+            //amelioration apportee : serie de if en switch
+            
+            switch ( pari ) {
+                case 1 :    joueurGagne = estUnePaire ( carte1, carte2 );
+                            montantGagne = 4 * mise;
+                            break;
+                case 2 :    joueurGagne = estUneSequence ( carte1, carte2 );
+                            montantGagne = 2 * mise;
+                            break;
+                case 3 :    joueurGagne = sontMemeCouleur ( carte1, carte2 );
+                            montantGagne = mise;
+                            break;
+                case 4 :    joueurGagne = estInferieurOuEgalA7 ( carte1, carte2 );
+                            montantGagne = 5 * mise;
+                            break;
             }
             
             // afficher si le joueur a gagne ou perdu ainsi que son gain s'il y a lieu
             
             if ( joueurGagne ) {
-                System.out.println ( "Bravo ! Vous avez gagné " + montantGagne + " $" );
+                System.out.println ( "Bravo ! Vous avez gagne " + montantGagne + " $" );
                 montantJoueur = montantJoueur + montantGagne;
             } else {
-                System.out.println ( "Désolé ! Vous avez perdu votre mise !" );
+                System.out.println ( "Desole ! Vous avez perdu votre mise !" );
             }
             
-            // retrait du coût d'un pari
+            // retrait du cout d'un pari
             
             montantJoueur = montantJoueur - coutPari;
-            System.out.println("Un coût de " + coutPari + " $ a été retiré de votre montant d'argent.");
+            System.out.println("Un cout de " + coutPari + " $ a ete retire de votre montant d'argent.");
             
             System.out.println ();
             System.out.println ( "Vous disposez maintenant de " + montantJoueur + " $" );
